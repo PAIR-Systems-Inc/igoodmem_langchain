@@ -195,9 +195,6 @@ class GoodMemClient:
         space_id: str,
         text_content: str | None = None,
         file_path: str | None = None,
-        source: str | None = None,
-        author: str | None = None,
-        tags: str | None = None,
         metadata: dict[str, Any] | None = None,
     ) -> dict[str, Any]:
         """Create a new memory in a space from text or a file.
@@ -209,10 +206,7 @@ class GoodMemClient:
             space_id: The UUID of the target space.
             text_content: Plain text content to store.
             file_path: Local file path to upload as memory.
-            source: Source label stored in `metadata.source`.
-            author: Author label stored in `metadata.author`.
-            tags: Comma-separated tags stored in `metadata.tags` as a list.
-            metadata: Additional key-value metadata merged with the above fields.
+            metadata: Optional key-value metadata as a dictionary.
 
         Returns:
             A dictionary with the created memory info.
@@ -246,19 +240,8 @@ class GoodMemClient:
             msg = "No content provided. Provide either text_content or file_path."
             raise ValueError(msg)
 
-        merged_metadata: dict[str, Any] = {}
         if metadata:
-            merged_metadata.update(metadata)
-        if source:
-            merged_metadata["source"] = source
-        if author:
-            merged_metadata["author"] = author
-        if tags:
-            merged_metadata["tags"] = [
-                t.strip() for t in tags.split(",") if t.strip()
-            ]
-        if merged_metadata:
-            request_body["metadata"] = merged_metadata
+            request_body["metadata"] = metadata
 
         with self._client() as client:
             response = client.post(

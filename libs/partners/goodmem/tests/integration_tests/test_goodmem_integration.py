@@ -127,8 +127,7 @@ class TestEndToEndFlow:
                 "LangChain is a framework for developing applications "
                 "powered by large language models."
             ),
-            "source": "test",
-            "tags": "langchain,test",
+            "metadata": {"source": "test", "tags": ["langchain", "test"]},
         })
         result = json.loads(raw)
         assert result["success"] is True
@@ -170,7 +169,7 @@ class TestEndToEndFlow:
         raw = create_tool.invoke({
             "space_id": space_id,
             "file_path": TEST_PDF,
-            "source": "pdf-test",
+            "metadata": {"source": "pdf-test"},
         })
         result = json.loads(raw)
         assert result["success"] is True

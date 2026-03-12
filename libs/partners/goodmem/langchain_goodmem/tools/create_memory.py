@@ -30,31 +30,9 @@ class CreateMemoryInput(BaseModel):
             "Content type is auto-detected from the file extension."
         ),
     )
-    source: str | None = Field(
-        default=None,
-        description=(
-            "Where this memory came from (e.g., 'google-drive', 'manual upload'). "
-            "Stored in metadata.source."
-        ),
-    )
-    author: str | None = Field(
-        default=None,
-        description="The author or creator of the content. Stored in metadata.author.",
-    )
-    tags: str | None = Field(
-        default=None,
-        description=(
-            "Comma-separated tags for categorization "
-            "(e.g., 'legal,research,important'). "
-            "Stored in metadata.tags as a list."
-        ),
-    )
     metadata: dict[str, Any] | None = Field(
         default=None,
-        description=(
-            "Extra key-value metadata as a dictionary. "
-            "Merged with source, author, and tags fields."
-        ),
+        description="Optional key-value metadata as a dictionary.",
     )
 
 
@@ -119,9 +97,6 @@ class GoodMemCreateMemory(BaseTool):
         space_id: str,
         text_content: str | None = None,
         file_path: str | None = None,
-        source: str | None = None,
-        author: str | None = None,
-        tags: str | None = None,
         metadata: dict[str, Any] | None = None,
         **kwargs: Any,
     ) -> str:
@@ -131,10 +106,7 @@ class GoodMemCreateMemory(BaseTool):
             space_id: The target space UUID.
             text_content: Plain text content.
             file_path: Path to a local file.
-            source: Source label for metadata.
-            author: Author label for metadata.
-            tags: Comma-separated tags.
-            metadata: Additional metadata dictionary.
+            metadata: Optional metadata dictionary.
             **kwargs: Additional keyword arguments (unused).
 
         Returns:
@@ -150,9 +122,6 @@ class GoodMemCreateMemory(BaseTool):
                 space_id=space_id,
                 text_content=text_content,
                 file_path=file_path,
-                source=source,
-                author=author,
-                tags=tags,
                 metadata=metadata,
             )
         except Exception as e:

@@ -35,9 +35,6 @@ def test_create_memory_schema() -> None:
     assert "space_id" in schema["properties"]
     assert "text_content" in schema["properties"]
     assert "file_path" in schema["properties"]
-    assert "source" in schema["properties"]
-    assert "author" in schema["properties"]
-    assert "tags" in schema["properties"]
     assert "metadata" in schema["properties"]
 
 
