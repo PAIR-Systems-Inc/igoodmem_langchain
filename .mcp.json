@@ -4,9 +4,9 @@
       "type": "http",
       "url": "https://docs.langchain.com/mcp"
     },
-    "reference-langchain": {
+    "context7": {
       "type": "http",
-      "url": "https://reference.langchain.com/mcp"
+      "url": "https://mcp.context7.com/mcp"
     }
   }
 }
